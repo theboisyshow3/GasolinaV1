@@ -893,9 +893,9 @@ export const getWalletTokenBalance = async (
   return balance
 }
 
-// @ts-ignore
-BigInt.prototype["toJSON"] = function () {
-  return parseInt(this.toString())
+
+export const bigintToJSON = (value: bigint): number => {
+  return parseInt(value.toString())
 }
 
 export const sendAndRetryTransaction = async (
