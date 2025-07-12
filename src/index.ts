@@ -24,6 +24,7 @@ import {
   getSolanaPrice,
   getTransactionDataFromWebhookTransaction,
   heliusRpcUrl,
+  bigintToJSON,
 } from "@/lib/utils"
 import sql, {
   getTokenSignals,
@@ -761,7 +762,9 @@ const sendSocialsNotification = async (
       "Couldn't send Discord message " +
         e +
         JSON.stringify(msg) +
-        JSON.stringify(data.tokenData) +
+        JSON.stringify(data.tokenData, (_, v) =>
+          typeof v === "bigint" ? bigintToJSON(v) : v
+        ) +
         new Date().toLocaleString()
     )
   }
@@ -819,7 +822,3 @@ const stringToColour = (str: string) => {
   return colour
 }
 
-// @ts-ignore
-BigInt.prototype["toJSON"] = function () {
-  return parseInt(this.toString())
-}
