@@ -28,6 +28,8 @@ Moonbot Token Sniper Bot is a sophisticated tool designed for the Solana blockch
 - **Database Management:** Utilizes PostgreSQL to store and manage token data, signals, and user invite codes.
 - **Encryption:** Encrypts sensitive information such as keypairs using AES-256-CBC encryption for enhanced security.
 - **Retry Mechanism:** Implements robust retry logic for transaction submissions to handle network or API failures gracefully.
+- **Pump.fun Monitoring:** Fetches new Pump.fun launches and filters them by liquidity, volume, age, and blocklists.
+- **Trade Logging:** Records every buy and sell in the `trade_log` table for easy profit tracking.
 
 ## Architecture
 

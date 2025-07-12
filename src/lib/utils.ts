@@ -1019,3 +1019,31 @@ export type PairData = {
   pairCreatedAt: number
   info: TokenImage
 }
+
+// Approximate dev wallet share using Helius API
+export const checkDevWalletShare = async (
+  mint: string
+): Promise<number | null> => {
+  try {
+    const url = `https://api.helius.xyz/v0/tokens/${mint}?api-key=${process.env.HELIUS_API_KEY}`
+    const res = await fetch(url)
+    if (!res.ok) return null
+    const data = await res.json()
+    return Number(data?.devShare) || null
+  } catch {
+    return null
+  }
+}
+
+// Check if LP tokens are locked using Birdeye public API
+export const checkLpLocked = async (mint: string): Promise<boolean> => {
+  try {
+    const url = `https://public-api.birdeye.so/defi/token/${mint}`
+    const res = await fetch(url)
+    if (!res.ok) return false
+    const data = await res.json()
+    return Boolean(data?.data?.isLpLocked)
+  } catch {
+    return false
+  }
+}

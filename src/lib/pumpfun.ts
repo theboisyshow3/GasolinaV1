@@ -25,6 +25,7 @@ import {
   MEMO_PROGRAM_ID,
 } from "@raydium-io/raydium-sdk"
 import chalk from "chalk"
+import { insertTradeLog } from "./postgres"
 
 const connection = new Connection(heliusRpcUrl, {
   confirmTransactionInitialTimeout: 1 * 80 * 1000,
@@ -213,6 +214,15 @@ export const getBuyPumpfunTokenTransaction = async (
 
       versionedTransaction.sign([keypair])
 
+      await insertTradeLog(
+        tokenMint.toString(),
+        "BUY",
+        virtualTokenPrice,
+        finalAmount,
+        null,
+        Date.now()
+      )
+
       return versionedTransaction.serialize()
 
       // const txid = await connection.sendRawTransaction(
@@ -373,6 +383,14 @@ export const getSellPumpfunTokenTransaction = async (
             JSON.stringify(simulated.value.err)
         )
       } else {
+        await insertTradeLog(
+          tokenMint.toString(),
+          "SELL",
+          virtualTokenPrice,
+          amount,
+          null,
+          Date.now()
+        )
         return versionedTransaction.serialize()
       }
     } catch (e) {

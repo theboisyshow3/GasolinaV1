@@ -120,6 +120,23 @@ CREATE TABLE public.token_prices (
 ALTER TABLE public.token_prices OWNER TO postgres;
 
 --
+-- Name: trade_log; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.trade_log (
+    id serial PRIMARY KEY,
+    token_mint character varying(80),
+    trade_type character varying(4),
+    price double precision,
+    amount double precision,
+    gain_loss double precision,
+    "timestamp" bigint
+);
+
+
+ALTER TABLE public.trade_log OWNER TO postgres;
+
+--
 -- Name: token_signals; Type: TABLE; Schema: public; Owner: postgres
 --
 
