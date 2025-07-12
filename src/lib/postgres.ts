@@ -80,6 +80,16 @@ export type SignalWithEntry = {
   entry_source: string
 }
 
+export type TradeLogRow = {
+  id: number
+  token_mint: string
+  trade_type: "BUY" | "SELL"
+  price: number
+  amount: number
+  gain_loss: number | null
+  timestamp: number
+}
+
 
 export const getSignals = async (maxHoursOld = 24) => {
   console.time("signals query")
@@ -274,6 +284,23 @@ export const insertPoolAddress = async (token: string, poolAddress: string) => {
             INSERT INTO pool_addresses (token, pool_address)
             VALUES (${token}, ${poolAddress})
         `
+
+  return res[0]
+}
+
+export const insertTradeLog = async (
+  tokenMint: string,
+  tradeType: "BUY" | "SELL",
+  price: number,
+  amount: number,
+  gainLoss: number | null,
+  timestamp: number
+) => {
+  const res = await sql<TradeLogRow[]>`
+    INSERT INTO trade_log (token_mint, trade_type, price, amount, gain_loss, "timestamp")
+    VALUES (${tokenMint}, ${tradeType}, ${price}, ${amount}, ${gainLoss}, ${timestamp})
+    RETURNING *
+  `
 
   return res[0]
 }
