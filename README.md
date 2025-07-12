@@ -103,7 +103,6 @@ Before setting up Moonbot, ensure you have the following:
 
    ```env
     KEYPAIR_ENCRYPTION_KEY=
-    KEYPAIR_ENCRYPTION_IV=
     DATABASE_URL=postgres://postgres:password@localhost:5432/database
     DISCORD_BOT_TOKEN=
     TELEGRAM_BOT_TOKEN=
@@ -113,8 +112,7 @@ Before setting up Moonbot, ensure you have the following:
     HTTPS_KEY_PATH=/etc/letsencrypt/archive/server.com/privkey1.pem
     HTTPS_CERT_PATH=/etc/letsencrypt/archive/server.com/fullchain1.pem
    ```
-   - **KEYPAIR_ENCRYPTION_KEY:** Hex-encoded key for encrypting keypairs.
-   - **KEYPAIR_ENCRYPTION_IV:** Hex-encoded initialization vector for encryption.
+   - **KEYPAIR_ENCRYPTION_KEY:** Hex-encoded key for encrypting keypairs. A random IV is generated for each encryption.
    - **DATABASE_URL:** PostgreSQL connection string.
    - **DISCORD_BOT_TOKEN:** Token for Discord bot integration.
    - **TELEGRAM_BOT_TOKEN:** Token for Telegram bot integration.

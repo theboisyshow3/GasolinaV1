@@ -55,9 +55,8 @@ const encryptionKey = Buffer.from(
   process.env.KEYPAIR_ENCRYPTION_KEY as string,
   "hex"
 )
-const iv = Buffer.from(process.env.KEYPAIR_ENCRYPTION_IV as string, "hex")
-
 export async function encrypt(text: string) {
+  const iv = crypto.randomBytes(16)
   const cipher = crypto.createCipheriv("aes-256-cbc", encryptionKey, iv)
   const encrypted = Buffer.concat([cipher.update(text, "utf8"), cipher.final()])
   return iv.toString("hex") + ":" + encrypted.toString("hex")
